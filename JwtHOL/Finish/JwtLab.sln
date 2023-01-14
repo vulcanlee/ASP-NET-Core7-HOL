@@ -5,17 +5,19 @@ VisualStudioVersion = 17.4.33205.214
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JwtLab", "JwtLab\JwtLab.csproj", "{4D09E063-5D3C-47FE-BDA1-DA69748237B4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataTransferObjects", "DataTransferObjects\DataTransferObjects.csproj", "{189313CD-5230-41D0-B471-A6ED20AD1C5E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataTransferObjects", "DataTransferObjects\DataTransferObjects.csproj", "{189313CD-5230-41D0-B471-A6ED20AD1C5E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccessLayer", "DataAccessLayer\DataAccessLayer.csproj", "{3FA30FE3-2668-4852-86BF-961D1FF85970}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataAccessLayer", "DataAccessLayer\DataAccessLayer.csproj", "{3FA30FE3-2668-4852-86BF-961D1FF85970}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BussinessLayer", "BussinessLayer\BussinessLayer.csproj", "{DBF00FA0-8A29-4CCB-BBFC-8ACC901442F3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BussinessLayer", "BussinessLayer\BussinessLayer.csproj", "{DBF00FA0-8A29-4CCB-BBFC-8ACC901442F3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InfrastructureLayer", "InfrastructureLayer\InfrastructureLayer.csproj", "{D2783D0F-04A2-4828-BC85-C983FB415995}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InfrastructureLayer", "InfrastructureLayer\InfrastructureLayer.csproj", "{D2783D0F-04A2-4828-BC85-C983FB415995}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DomainLayer", "DomainLayer\DomainLayer.csproj", "{4FF923DB-D33C-493D-8810-4A595C1684C1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DomainLayer", "DomainLayer\DomainLayer.csproj", "{4FF923DB-D33C-493D-8810-4A595C1684C1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommonDomainLayer", "CommonDomainLayer\CommonDomainLayer.csproj", "{6F780C36-2BA0-4633-8CFB-072A58DC5A68}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CommonDomainLayer", "CommonDomainLayer\CommonDomainLayer.csproj", "{6F780C36-2BA0-4633-8CFB-072A58DC5A68}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApplicationLayer", "ApplicationLayer\ApplicationLayer.csproj", "{8A7BDB94-E03D-42CC-9EAD-3AC34B947F15}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,6 +53,10 @@ Global
 		{6F780C36-2BA0-4633-8CFB-072A58DC5A68}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6F780C36-2BA0-4633-8CFB-072A58DC5A68}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6F780C36-2BA0-4633-8CFB-072A58DC5A68}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8A7BDB94-E03D-42CC-9EAD-3AC34B947F15}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8A7BDB94-E03D-42CC-9EAD-3AC34B947F15}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8A7BDB94-E03D-42CC-9EAD-3AC34B947F15}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8A7BDB94-E03D-42CC-9EAD-3AC34B947F15}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
