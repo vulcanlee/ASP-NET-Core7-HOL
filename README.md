@@ -6,7 +6,7 @@
 |AN001|ASP.NET Core7 空白 專案範本|
 |AN002|ASP.NET Core7 Web API 專案範本|
 |AN003|ASP.NET Core7 MVC 專案範本|
-|AN004||
+|AN004|ASP.NET Core 的設定讀取練習，使用 Configuration|
 |AN005||
 |AN006||
 |AN007||
