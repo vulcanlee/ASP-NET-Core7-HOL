@@ -2,7 +2,7 @@
 
 ## 範例說明
 |專案名稱|說明|
-|-|-|-|
+|-|-|
 |AN001|ASP.NET Core7 空白 專案範本|
 |AN002|ASP.NET Core7 Web API 專案範本|
 |AN003|ASP.NET Core7 MVC 專案範本|
