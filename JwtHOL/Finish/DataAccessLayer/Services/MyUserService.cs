@@ -1,10 +1,12 @@
 ﻿using CommonDomainLayer.Enums;
+using DataAccessLayer.Interfaces;
 using DomainLayer.Models;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -24,8 +26,24 @@ namespace DataAccessLayer.Services
         #endregion
 
         #region 其他服務方法
+        public async Task<MyUser> GetAsync(int id)
+        {
+            List<MyUser> users = MyUser.GetMyUsers();
+            var checkUser = users.FirstOrDefault(x =>
+            x.Id == id);
+            await Task.Yield();
+            if (checkUser == null)
+            {
+                return new MyUser();
+            }
+            else
+            {
+                return checkUser;
+            }
+
+        }
         public async Task<(MyUser, string)>
-            CheckUser(string account, string password)
+            CheckUserAsync(string account, string password)
         {
             List<MyUser> users = MyUser.GetMyUsers();
             var checkUser = users.FirstOrDefault(x =>

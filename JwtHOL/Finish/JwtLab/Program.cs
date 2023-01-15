@@ -65,12 +65,10 @@ try
                 ValidateAudience = true,
                 ValidateLifetime = true,
                 ValidateIssuerSigningKey = true,
-                ValidIssuer = builder
-                .Configuration[jwtConfiguration.ValidIssuer],
-                ValidAudience = builder
-                .Configuration[jwtConfiguration.ValidAudience],
+                ValidIssuer = jwtConfiguration.ValidIssuer,
+                ValidAudience = jwtConfiguration.ValidAudience,
                 IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8
-                .GetBytes(builder.Configuration[jwtConfiguration.ValidAudience]!)),
+                .GetBytes(jwtConfiguration.ValidAudience)),
                 RequireExpirationTime = true,
                 ClockSkew = TimeSpan.FromMinutes(jwtConfiguration.ClockSkew),
             };
