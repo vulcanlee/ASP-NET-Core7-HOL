@@ -5,13 +5,17 @@ using DataAccessLayer.Services;
 using DataTransferObjects.Dtos;
 using JwtLab.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Features;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
 using NLog;
 using NLog.Web;
+using System.Linq;
+using System.Net;
 using System.Text;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 #region NLog 的啟動宣告
 // NLog 設定說明 : https://github.com/NLog/NLog/wiki/Getting-started-with-ASP.NET-Core-6
@@ -77,11 +81,12 @@ try
                 OnAuthenticationFailed = context =>
                 {
                     //context.Response.StatusCode = 401;
-                    //context.Response.HttpContext.Features
-                    //.Get<IHttpResponseFeature>().ReasonPhrase =
-                    //context.Exception.Message;
-                    //APIResult apiResult = JWTTokenFailHelper.GetFailResult(context.Exception);
+                    context.Response.HttpContext.Features
+                    .Get<IHttpResponseFeature>().ReasonPhrase =
+                    context.Exception.Message;
 
+                    APIResult apiResult = JWTTokenFailHelper.GetFailResult(context.Exception);
+                    context.HttpContext.Items.Add("ExceptionJson", apiResult);
                     //context.Response.ContentType = "application/json";
                     //context.Response.WriteAsync(JsonConvert.SerializeObject(apiResult)).Wait();
                     return Task.CompletedTask;
@@ -113,6 +118,23 @@ try
 
     #region 宣告管道與中介軟體
 
+    app.Use(async (context, next) =>
+    {
+        await next();
+
+        if (context.Response.StatusCode == (int)HttpStatusCode.Unauthorized) // 401
+        {
+            if(context.Items.ContainsKey("ExceptionJson"))
+            {
+                var item = context.Items["ExceptionJson"];
+                if(item is APIResult)
+                {
+                    context.Response.ContentType = "application/json";
+                    context.Response.WriteAsync(JsonConvert.SerializeObject(item)).Wait();
+                }
+            }
+        }
+    });
     #region 宣告 NLog 要使用到的變數內容
     CustomNLogConfiguration optionsCustomNLogConfiguration =
         app.Services.GetRequiredService<IOptions<CustomNLogConfiguration>>()
