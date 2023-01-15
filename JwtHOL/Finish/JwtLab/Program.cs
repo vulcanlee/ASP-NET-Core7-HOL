@@ -68,7 +68,7 @@ try
                 ValidIssuer = jwtConfiguration.ValidIssuer,
                 ValidAudience = jwtConfiguration.ValidAudience,
                 IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8
-                .GetBytes(jwtConfiguration.ValidAudience)),
+                .GetBytes(jwtConfiguration.IssuerSigningKey)),
                 RequireExpirationTime = true,
                 ClockSkew = TimeSpan.FromMinutes(jwtConfiguration.ClockSkew),
             };
@@ -78,7 +78,7 @@ try
                 {
                     //context.Response.StatusCode = 401;
                     //context.Response.HttpContext.Features
-                    //.Get<IHttpResponseFeature>().ReasonPhrase = 
+                    //.Get<IHttpResponseFeature>().ReasonPhrase =
                     //context.Exception.Message;
                     //APIResult apiResult = JWTTokenFailHelper.GetFailResult(context.Exception);
 
