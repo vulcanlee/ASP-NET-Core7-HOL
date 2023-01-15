@@ -77,7 +77,7 @@ namespace JwtLab.Controllers
 
         }
 
-        [Authorize(AuthenticationSchemes = MagicObject.JwtBearerAuthenticationScheme, Roles = MagicObject.RoleRefreshToken)]
+        [Authorize(AuthenticationSchemes = MagicObject.JwtBearerAuthenticationScheme, Roles = "RefreshToken")]
         [Route("RefreshToken")]
         [HttpGet]
         public async Task<IActionResult> RefreshToken()

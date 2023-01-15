@@ -76,14 +76,14 @@ try
             {
                 OnAuthenticationFailed = context =>
                 {
-                    context.Response.StatusCode = 401;
-                    context.Response.HttpContext.Features
-                    .Get<IHttpResponseFeature>().ReasonPhrase = 
-                    context.Exception.Message;
-                    APIResult apiResult = JWTTokenFailHelper.GetFailResult(context.Exception);
+                    //context.Response.StatusCode = 401;
+                    //context.Response.HttpContext.Features
+                    //.Get<IHttpResponseFeature>().ReasonPhrase = 
+                    //context.Exception.Message;
+                    //APIResult apiResult = JWTTokenFailHelper.GetFailResult(context.Exception);
 
-                    context.Response.ContentType = "application/json";
-                    context.Response.WriteAsync(JsonConvert.SerializeObject(apiResult)).Wait();
+                    //context.Response.ContentType = "application/json";
+                    //context.Response.WriteAsync(JsonConvert.SerializeObject(apiResult)).Wait();
                     return Task.CompletedTask;
                 },
                 OnChallenge = context =>
