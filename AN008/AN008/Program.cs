@@ -34,6 +34,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8
             .GetBytes("!2+#oHfX>L$E#K'^XG>a")),
             RequireExpirationTime = true,
+            ClockSkew = TimeSpan.FromSeconds(0),
         };
     });
     #endregion
