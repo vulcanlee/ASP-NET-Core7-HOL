@@ -1,4 +1,4 @@
-﻿namespace JwtLab.Models
+﻿namespace CommonDomainLayer.Configurations
 {
     public class JwtConfiguration
     {
