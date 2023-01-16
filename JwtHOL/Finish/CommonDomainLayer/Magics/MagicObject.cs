@@ -13,5 +13,6 @@ namespace CommonDomainLayer.Magics
         public const string JwtBearerAuthenticationScheme = "BackendJwtBearerAuthenticationScheme"; // JwtBearerDefaults.AuthenticationScheme
         public const string SectionNameOfJwtConfiguration = "JWT";
         public const string RoleRefreshToken = "RefreshToken";
+        public const string ClaimTypeRoleNameSymbol = "role";
     }
 }

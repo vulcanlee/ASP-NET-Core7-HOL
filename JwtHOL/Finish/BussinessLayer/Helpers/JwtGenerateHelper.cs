@@ -17,13 +17,8 @@ namespace BussinessLayer.Helpers
 {
     public class JwtGenerateHelper
     {
-        private readonly JwtConfiguration jwtConfiguration;
-
-        public JwtGenerateHelper(IOptions<JwtConfiguration> jwtConfiguration)
-        {
-            this.jwtConfiguration = jwtConfiguration.Value;
-        }
-        public string GenerateAccessToken(MyUser user, List<Claim> claims)
+        public string GenerateAccessToken(MyUser user, List<Claim> claims,
+            JwtConfiguration jwtConfiguration)
         {
             var token = new JwtSecurityToken
             (
@@ -41,7 +36,8 @@ namespace BussinessLayer.Helpers
             return tokenString;
         }
 
-        public string GenerateRefreshToken(MyUser user, List<Claim> claims)
+        public string GenerateRefreshToken(MyUser user, List<Claim> claims,
+            JwtConfiguration jwtConfiguration)
         {
             var token = new JwtSecurityToken
             (

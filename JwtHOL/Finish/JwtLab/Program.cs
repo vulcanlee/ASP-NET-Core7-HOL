@@ -1,9 +1,10 @@
 using BussinessLayer.Helpers;
+using CommonDomainLayer.Configurations;
 using CommonDomainLayer.Magics;
 using DataAccessLayer.Interfaces;
 using DataAccessLayer.Services;
 using DataTransferObjects.Dtos;
-using JwtLab.Models;
+using JwtLab.Models.Configurations;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Features;

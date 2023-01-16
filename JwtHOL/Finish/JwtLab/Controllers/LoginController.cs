@@ -1,11 +1,11 @@
 using BussinessLayer.Factories;
 using BussinessLayer.Helpers;
+using CommonDomainLayer.Configurations;
 using CommonDomainLayer.Enums;
 using CommonDomainLayer.Magics;
 using DataAccessLayer.Interfaces;
 using DataTransferObjects.Dtos;
 using DomainLayer.Models;
-using JwtLab.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
@@ -61,22 +61,24 @@ namespace JwtLab.Controllers
             #region 產生存取權杖與更新權杖
             var claims = new List<Claim>()
             {
-                new Claim(ClaimTypes.Role, "User"),
+                new Claim(MagicObject.ClaimTypeRoleNameSymbol, "User"),
                 new Claim(ClaimTypes.NameIdentifier, user.Account),
                 new Claim(ClaimTypes.Name, user.Name),
                 new Claim(ClaimTypes.Sid, user.Id.ToString()),
             };
 
-            string token = jwtGenerateHelper.GenerateAccessToken(user, claims);
+            string token = jwtGenerateHelper.GenerateAccessToken(user,
+                claims, jwtConfiguration);
 
             claims = new List<Claim>()
             {
-                new Claim(ClaimTypes.Role, $"RefreshToken"),
+                new Claim(MagicObject.ClaimTypeRoleNameSymbol, MagicObject.RoleRefreshToken),
                 new Claim(ClaimTypes.NameIdentifier, user.Account),
                 new Claim(ClaimTypes.Name, user.Name),
                 new Claim(ClaimTypes.Sid, user.Id.ToString()),
             };
-            string refreshToken = jwtGenerateHelper.GenerateRefreshToken(user, claims);
+            string refreshToken = jwtGenerateHelper.GenerateRefreshToken(user,
+                claims, jwtConfiguration);
             #endregion
 
             LoginResponseDto LoginResponseDTO = new LoginResponseDto()
@@ -96,7 +98,8 @@ namespace JwtLab.Controllers
 
         }
 
-        [Authorize(AuthenticationSchemes = MagicObject.JwtBearerAuthenticationScheme, Roles = "RefreshToken")]
+        [Authorize(AuthenticationSchemes = MagicObject.JwtBearerAuthenticationScheme,
+            Roles = MagicObject.RoleRefreshToken)]
         [Route("RefreshToken")]
         [HttpGet]
         public async Task<IActionResult> RefreshToken()
@@ -119,22 +122,24 @@ namespace JwtLab.Controllers
             #region 產生存取權杖與更新權杖
             var claims = new List<Claim>()
             {
-                new Claim(ClaimTypes.Role, "User"),
+                new Claim(MagicObject.ClaimTypeRoleNameSymbol, "User"),
                 new Claim(ClaimTypes.NameIdentifier, user.Account),
                 new Claim(ClaimTypes.Name, user.Name),
                 new Claim(ClaimTypes.Sid, user.Id.ToString()),
             };
 
-            string token = jwtGenerateHelper.GenerateAccessToken(user, claims);
+            string token = jwtGenerateHelper.GenerateAccessToken(user,
+                claims, jwtConfiguration);
 
             claims = new List<Claim>()
             {
-                new Claim(ClaimTypes.Role, $"RefreshToken"),
+                new Claim(MagicObject.ClaimTypeRoleNameSymbol, MagicObject.RoleRefreshToken),
                 new Claim(ClaimTypes.NameIdentifier, user.Account),
                 new Claim(ClaimTypes.Name, user.Name),
                 new Claim(ClaimTypes.Sid, user.Id.ToString()),
             };
-            string refreshToken = jwtGenerateHelper.GenerateRefreshToken(user, claims);
+            string refreshToken = jwtGenerateHelper.GenerateRefreshToken(user, 
+                claims, jwtConfiguration);
             #endregion
 
             LoginResponseDto LoginResponseDTO = new LoginResponseDto()
