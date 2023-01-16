@@ -7,9 +7,9 @@
 |AN002|ASP.NET Core7 Web API 專案範本|
 |AN003|ASP.NET Core7 MVC 專案範本|
 |AN004|ASP.NET Core 的設定讀取練習，使用 Configuration|
-|AN005||
-|AN006||
-|AN007||
+|AN005|動手練習相依性注入的使用方式|
+|AN006|加入 NLog 套件到 ASP.NET Core 專案內|
+|AN007|手動產生 JWT 權杖的做法|
 |AN008||
 |AN009||
 |AN010||
