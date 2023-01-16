@@ -8,12 +8,15 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
+    <PackageReference Include="Microsoft.Extensions.Options" Version="7.0.0" />
     <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="6.25.1" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.25.1" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\CommonDomainLayer\CommonDomainLayer.csproj" />
     <ProjectReference Include="..\DataTransferObjects\DataTransferObjects.csproj" />
+    <ProjectReference Include="..\DomainLayer\DomainLayer.csproj" />
   </ItemGroup>
 
 </Project>

@@ -38,6 +38,7 @@ try
 
     #region 註冊本專案會用到的克制服務
     builder.Services.AddTransient<IMyUserService, MyUserService>();
+    builder.Services.AddTransient<JwtGenerateHelper>();
     #endregion
 
     #region 相關選項模式

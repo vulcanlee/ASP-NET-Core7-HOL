@@ -1,4 +1,5 @@
 using BussinessLayer.Factories;
+using BussinessLayer.Helpers;
 using CommonDomainLayer.Enums;
 using CommonDomainLayer.Magics;
 using DataAccessLayer.Interfaces;
@@ -21,16 +22,16 @@ namespace JwtLab.Controllers
     [ApiController]
     public class LoginController : ControllerBase
     {
-        private readonly Microsoft.Extensions.Configuration.IConfiguration configuration;
         private readonly IMyUserService myUserService;
+        private readonly JwtGenerateHelper jwtGenerateHelper;
         private readonly JwtConfiguration jwtConfiguration;
 
-        public LoginController(Microsoft.Extensions.Configuration.IConfiguration configuration,
-            IMyUserService myUserService, IOptions<JwtConfiguration> tokenConfiguration)
+        public LoginController(IMyUserService myUserService,
+            JwtGenerateHelper jwtGenerateHelper, IOptions<JwtConfiguration> jwtConfiguration)
         {
-            this.configuration = configuration;
             this.myUserService = myUserService;
-            this.jwtConfiguration = tokenConfiguration.Value;
+            this.jwtGenerateHelper = jwtGenerateHelper;
+            this.jwtConfiguration = jwtConfiguration.Value;
         }
         [AllowAnonymous]
         [HttpPost]
@@ -46,19 +47,37 @@ namespace JwtLab.Controllers
                 return Ok(apiResult);
             }
 
-            (MyUser user, string message) = 
+            (MyUser user, string message) =
                 await myUserService.CheckUserAsync(loginRequestDTO.Account,
                 loginRequestDTO.Password);
 
             if (user == null)
             {
-                apiResult = APIResultFactory.Build(false, 
-                    StatusCodes.Status400BadRequest,"帳號或密碼不正確");
+                apiResult = APIResultFactory.Build(false,
+                    StatusCodes.Status400BadRequest, "帳號或密碼不正確");
                 return BadRequest(apiResult);
             }
 
-            string token = GenerateToken(user);
-            string refreshToken = GenerateRefreshToken(user);
+            #region 產生存取權杖與更新權杖
+            var claims = new List<Claim>()
+            {
+                new Claim(ClaimTypes.Role, "User"),
+                new Claim(ClaimTypes.NameIdentifier, user.Account),
+                new Claim(ClaimTypes.Name, user.Name),
+                new Claim(ClaimTypes.Sid, user.Id.ToString()),
+            };
+
+            string token = jwtGenerateHelper.GenerateAccessToken(user, claims);
+
+            claims = new List<Claim>()
+            {
+                new Claim(ClaimTypes.Role, $"RefreshToken"),
+                new Claim(ClaimTypes.NameIdentifier, user.Account),
+                new Claim(ClaimTypes.Name, user.Name),
+                new Claim(ClaimTypes.Sid, user.Id.ToString()),
+            };
+            string refreshToken = jwtGenerateHelper.GenerateRefreshToken(user, claims);
+            #endregion
 
             LoginResponseDto LoginResponseDTO = new LoginResponseDto()
             {
@@ -97,8 +116,26 @@ namespace JwtLab.Controllers
                 return BadRequest(apiResult);
             }
 
-            string token = GenerateToken(user);
-            string refreshToken = GenerateRefreshToken(user);
+            #region 產生存取權杖與更新權杖
+            var claims = new List<Claim>()
+            {
+                new Claim(ClaimTypes.Role, "User"),
+                new Claim(ClaimTypes.NameIdentifier, user.Account),
+                new Claim(ClaimTypes.Name, user.Name),
+                new Claim(ClaimTypes.Sid, user.Id.ToString()),
+            };
+
+            string token = jwtGenerateHelper.GenerateAccessToken(user, claims);
+
+            claims = new List<Claim>()
+            {
+                new Claim(ClaimTypes.Role, $"RefreshToken"),
+                new Claim(ClaimTypes.NameIdentifier, user.Account),
+                new Claim(ClaimTypes.Name, user.Name),
+                new Claim(ClaimTypes.Sid, user.Id.ToString()),
+            };
+            string refreshToken = jwtGenerateHelper.GenerateRefreshToken(user, claims);
+            #endregion
 
             LoginResponseDto LoginResponseDTO = new LoginResponseDto()
             {
@@ -117,58 +154,5 @@ namespace JwtLab.Controllers
 
         }
 
-        string GenerateToken(MyUser user)
-        {
-            var claims = new List<Claim>()
-            {
-                new Claim(ClaimTypes.Role, "User"),
-                new Claim(ClaimTypes.NameIdentifier, user.Account),
-                new Claim(ClaimTypes.Name, user.Name),
-                new Claim(ClaimTypes.Sid, user.Id.ToString()),
-
-            };
-
-            var token = new JwtSecurityToken
-            (
-                issuer: jwtConfiguration.ValidIssuer,
-                audience: jwtConfiguration.ValidAudience,
-                claims: claims,
-                expires: DateTime.Now.AddMinutes(jwtConfiguration.JwtExpireMinutes),
-                //notBefore: DateTime.Now.AddMinutes(-5),
-                signingCredentials: new SigningCredentials(new SymmetricSecurityKey
-                            (Encoding.UTF8.GetBytes(jwtConfiguration.IssuerSigningKey)),
-                        SecurityAlgorithms.HmacSha512)
-            );
-            string tokenString = new JwtSecurityTokenHandler().WriteToken(token);
-
-            return tokenString;
-        }
-
-        string GenerateRefreshToken(MyUser user)
-        {
-            var claims = new[]
-            {
-                new Claim(ClaimTypes.NameIdentifier, user.Account),
-                new Claim(ClaimTypes.Name, user.Name),
-                new Claim(ClaimTypes.Sid, user.Id.ToString()),
-                new Claim(ClaimTypes.Role, $"RefreshToken"),
-            };
-
-            var token = new JwtSecurityToken
-            (
-                issuer: jwtConfiguration.ValidIssuer,
-                audience: jwtConfiguration.ValidAudience,
-                claims: claims,
-                expires: DateTime.Now.AddDays(jwtConfiguration.JwtRefreshExpireDays),
-                //expires: DateTime.Now.AddMinutes(1),
-                //notBefore: DateTime.Now.AddMinutes(-5),
-                signingCredentials: new SigningCredentials(new SymmetricSecurityKey
-                            (Encoding.UTF8.GetBytes(jwtConfiguration.IssuerSigningKey)),
-                        SecurityAlgorithms.HmacSha512)
-            );
-            string tokenString = new JwtSecurityTokenHandler().WriteToken(token);
-
-            return tokenString;
-        }
     }
 }
