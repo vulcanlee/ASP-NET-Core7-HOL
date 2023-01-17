@@ -11,7 +11,7 @@
 |AN006|加入 NLog 套件到 ASP.NET Core 專案內|
 |AN007|手動產生 JWT 權杖的做法|
 |AN008|建立可以登入與取得 JWT 存取權杖的 Web API|
-|AN009||
+|AN009|ASP.NET Core7 Web API 專案範本(採用 最小 API)|
 |AN010||
 |AN011||
 |AN012||
