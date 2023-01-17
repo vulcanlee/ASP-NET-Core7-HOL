@@ -36,7 +36,10 @@ namespace JwtLab.Controllers
         [HttpPost]
         public ActionResult<MyUser> Post([FromBody] MyUser user)
         {
+            if (string.IsNullOrEmpty(user.Account)) return BadRequest();
+
             // Todo : Create this record
+
             return CreatedAtAction(nameof(Get), new { id = user.Id }, user);
         }
 
@@ -45,6 +48,7 @@ namespace JwtLab.Controllers
         public ActionResult Put(int id, [FromBody] MyUser user)
         {
             if(id!=user.Id) return BadRequest();
+            if (string.IsNullOrEmpty(user.Account)) return BadRequest();
 
             // Todo : Update this record
 
