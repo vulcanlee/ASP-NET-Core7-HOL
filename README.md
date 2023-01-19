@@ -14,7 +14,7 @@
 |AN009|ASP.NET Core7 Web API 專案範本(採用 最小 API)|
 |AN010|使用 EF Core Code First 來存取資料庫 - 大量新增紀錄|
 |AN011|ASP.NET Core7 Razor 頁面 專案範本|
-|AN012||
+|AN012|ASP.NET Core7 Blazor Server 專案範本|
 |AN013||
 |AN014||
 |AN015||
