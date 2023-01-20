@@ -5,7 +5,10 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
+
+#region 宣告要註冊 Registration 的客製服務與釋放 Release 生命週期
 builder.Services.AddTransient<IMyService, MyService>();
+#endregion
 
 #region 在 WebApplicationBuilder 物件內進行相依性注入
 using (ServiceProvider serviceProvider = 
