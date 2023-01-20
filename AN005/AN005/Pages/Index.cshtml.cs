@@ -9,6 +9,8 @@ namespace AN005.Pages
         private readonly ILogger<IndexModel> _logger;
         private readonly IMyService myService;
 
+        public string Message { get; set; } = string.Empty;
+
         public IndexModel(ILogger<IndexModel> logger,
             IMyService myService)
         {
@@ -20,6 +22,7 @@ namespace AN005.Pages
         {
             var hi = myService.Hi("Vulcan Lee");
             _logger.LogInformation($"In OnGet, Call Hi Method : {hi}");
+            Message= hi;
         }
     }
 }
