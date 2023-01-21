@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             Title="{Binding Title}"
+             x:Class="JwtMaui.Views.MainPage"
+             xmlns:viewModel="clr-namespace:JwtMaui.ViewModels"
+             x:DataType="viewModel:MainPageViewModel">
+
+    <ScrollView>
+        <VerticalStackLayout
+            Spacing="25"
+            Padding="30,0"
+            VerticalOptions="Center">
+
+            <Label Text="JWT"/>
+            <Label Text="{Binding Jwt}"
+             FontSize="14" TextColor="Black"
+             HorizontalOptions="Center" />
+
+            <Label Text="All Users"/>
+            <Label Text="{Binding Users}"
+             FontSize="18" TextColor="Black"
+             HorizontalOptions="Center" />
+
+            <Label Text="{Binding Message}" TextColor="Red" FontSize="22"/>
+
+            <VerticalStackLayout
+                IsVisible="{Binding ShowLoginUI}">
+                <Entry Text="{Binding Account}"/>
+                <Entry Text="{Binding Password}" IsPassword="True"/>
+
+                <Button Text="Login"
+                  Command="{Binding LoginCommand}"
+                  HorizontalOptions="Center" />
+            </VerticalStackLayout>
+
+            <VerticalStackLayout
+                IsVisible="{Binding ShowLogoutUI}"
+                >
+                <Button Text="Logout"
+                  Command="{Binding LogoutCommand}"
+                  HorizontalOptions="Center" />
+                
+                <Button Text="Get Users"
+                  Command="{Binding GetUsersCommand}"
+                  HorizontalOptions="Center" />
+
+            </VerticalStackLayout>
+
+
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>
