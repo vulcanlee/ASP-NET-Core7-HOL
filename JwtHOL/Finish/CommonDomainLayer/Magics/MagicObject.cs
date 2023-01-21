@@ -12,7 +12,9 @@ namespace CommonDomainLayer.Magics
         public const string CookieAuthenticationScheme = "BackendCookieAuthenticationScheme"; // CookieAuthenticationDefaults.AuthenticationScheme
         public const string JwtBearerAuthenticationScheme = "BackendJwtBearerAuthenticationScheme"; // JwtBearerDefaults.AuthenticationScheme
         public const string SectionNameOfJwtConfiguration = "JWT";
-        public const string RoleRefreshToken = "RefreshToken";
         public const string ClaimTypeRoleNameSymbol = "role";
+        public const string RoleRefreshToken = "RefreshToken";
+        public const string RoleUser = "User";
+        public const string RoleAdmin = "Admin";
     }
 }

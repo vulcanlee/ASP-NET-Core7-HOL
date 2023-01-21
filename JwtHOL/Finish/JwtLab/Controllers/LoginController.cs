@@ -61,11 +61,18 @@ namespace JwtLab.Controllers
             #region 產生存取權杖與更新權杖
             var claims = new List<Claim>()
             {
-                new Claim(MagicObject.ClaimTypeRoleNameSymbol, "User"),
+                new Claim(MagicObject.ClaimTypeRoleNameSymbol, MagicObject.RoleUser),
                 new Claim(ClaimTypes.NameIdentifier, user.Account),
                 new Claim(ClaimTypes.Name, user.Name),
                 new Claim(ClaimTypes.Sid, user.Id.ToString()),
             };
+
+            #region 授予 Emily 具有管理者角色
+            if(user.Account.ToLower() == "emily")
+            {
+                claims.Add(new Claim(MagicObject.ClaimTypeRoleNameSymbol, MagicObject.RoleAdmin));
+            }
+            #endregion
 
             string token = jwtGenerateHelper.GenerateAccessToken(user,
                 claims, jwtConfiguration);
@@ -122,7 +129,7 @@ namespace JwtLab.Controllers
             #region 產生存取權杖與更新權杖
             var claims = new List<Claim>()
             {
-                new Claim(MagicObject.ClaimTypeRoleNameSymbol, "User"),
+                new Claim(MagicObject.ClaimTypeRoleNameSymbol, MagicObject.RoleUser),
                 new Claim(ClaimTypes.NameIdentifier, user.Account),
                 new Claim(ClaimTypes.Name, user.Name),
                 new Claim(ClaimTypes.Sid, user.Id.ToString()),

@@ -15,7 +15,8 @@ namespace JwtLab.Controllers
     public class JwtAuthController : ControllerBase
     {
         [Route("NeedAuth")]
-        [Authorize(AuthenticationSchemes = MagicObject.JwtBearerAuthenticationScheme)]
+        [Authorize(AuthenticationSchemes = MagicObject.JwtBearerAuthenticationScheme,
+            Roles = MagicObject.RoleUser)]
         [HttpGet]
         public ActionResult<APIResult> NeedAuth()
         {
@@ -39,6 +40,28 @@ namespace JwtLab.Controllers
         [AllowAnonymous]
         [HttpGet]
         public ActionResult<APIResult> EveryOne()
+        {
+            APIResult aPIResult = new APIResult();
+            List<MyUserDto> myUsersDto = new();
+            foreach (var item in MyUser.GetMyUsers())
+            {
+                MyUserDto myUserDto = new MyUserDto()
+                {
+                    Account = item.Account,
+                    Name = item.Name,
+                    Password = item.Password,
+                };
+                myUsersDto.Add(myUserDto);
+            }
+            aPIResult.Payload = myUsersDto;
+            return aPIResult;
+        }
+
+        [Route("OnlyAdmin")]
+        [Authorize(AuthenticationSchemes = MagicObject.JwtBearerAuthenticationScheme,
+            Roles = MagicObject.RoleAdmin)]
+        [HttpGet]
+        public ActionResult<APIResult> OnlyAdmin()
         {
             APIResult aPIResult = new APIResult();
             List<MyUserDto> myUsersDto = new();
