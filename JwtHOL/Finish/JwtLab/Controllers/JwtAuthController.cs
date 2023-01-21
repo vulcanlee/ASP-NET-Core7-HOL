@@ -1,6 +1,8 @@
 ﻿using CommonDomainLayer.Magics;
+using DataTransferObjects.Dtos;
 using DomainLayer.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -15,17 +17,43 @@ namespace JwtLab.Controllers
         [Route("NeedAuth")]
         [Authorize(AuthenticationSchemes = MagicObject.JwtBearerAuthenticationScheme)]
         [HttpGet]
-        public ActionResult<List<MyUser>> NeedAuth()
+        public ActionResult<APIResult> NeedAuth()
         {
-            return MyUser.GetMyUsers();
+            APIResult aPIResult = new APIResult();
+            List<MyUserDto> myUsersDto = new();
+            foreach (var item in MyUser.GetMyUsers())
+            {
+                MyUserDto myUserDto = new MyUserDto()
+                {
+                    Account = item.Account,
+                    Name = item.Name,
+                    Password = item.Password,
+                };
+                myUsersDto.Add(myUserDto);
+            }
+            aPIResult.Payload = myUsersDto;
+            return aPIResult;
         }
 
         [Route("EveryOne")]
         [AllowAnonymous]
         [HttpGet]
-        public ActionResult<List<MyUser>> EveryOne()
+        public ActionResult<APIResult> EveryOne()
         {
-            return MyUser.GetMyUsers();
+            APIResult aPIResult = new APIResult();
+            List<MyUserDto> myUsersDto = new();
+            foreach (var item in MyUser.GetMyUsers())
+            {
+                MyUserDto myUserDto = new MyUserDto()
+                {
+                    Account = item.Account,
+                    Name = item.Name,
+                    Password = item.Password,
+                };
+                myUsersDto.Add(myUserDto);
+            }
+            aPIResult.Payload = myUsersDto;
+            return aPIResult;
         }
 
     }

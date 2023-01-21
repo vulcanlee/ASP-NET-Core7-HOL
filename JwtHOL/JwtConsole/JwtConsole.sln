@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33205.214
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JwtConsole", "JwtConsole\JwtConsole.csproj", "{8E1AA572-E438-4D49-BAF4-01D3DBE79598}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataTransferObjects", "..\Finish\DataTransferObjects\DataTransferObjects.csproj", "{129C5322-947A-4429-B016-9E217491A382}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8E1AA572-E438-4D49-BAF4-01D3DBE79598}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8E1AA572-E438-4D49-BAF4-01D3DBE79598}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8E1AA572-E438-4D49-BAF4-01D3DBE79598}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8E1AA572-E438-4D49-BAF4-01D3DBE79598}.Release|Any CPU.Build.0 = Release|Any CPU
+		{129C5322-947A-4429-B016-9E217491A382}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{129C5322-947A-4429-B016-9E217491A382}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{129C5322-947A-4429-B016-9E217491A382}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{129C5322-947A-4429-B016-9E217491A382}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {12EDF200-4431-44CE-978E-2F7F5A99FD59}
+	EndGlobalSection
+EndGlobal
