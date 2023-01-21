@@ -62,7 +62,15 @@ try
     });
     builder.Services.AddAuthentication(
         MagicObject.CookieAuthenticationScheme)
-        .AddCookie(MagicObject.CookieAuthenticationScheme)
+        .AddCookie(MagicObject.CookieAuthenticationScheme, options=>
+        {
+            //options.Events.OnRedirectToAccessDenied =
+            //    options.Events.OnRedirectToLogin = c =>
+            //    {
+            //        c.Response.StatusCode = StatusCodes.Status401Unauthorized;
+            //        return Task.FromResult<object>(null);
+            //    };
+        })
         .AddJwtBearer(MagicObject.JwtBearerAuthenticationScheme, options =>
         {
             options.TokenValidationParameters = new TokenValidationParameters
@@ -95,7 +103,11 @@ try
                 },
                 OnChallenge = context =>
                 {
-                    ////context.HandleResponse();
+                    //if (!context.Request.Path.StartsWithSegments("/api") &&
+                    //new HttpResponseMessage((HttpStatusCode)context.Response.StatusCode)
+                    //.IsSuccessStatusCode) { 
+                    //    context.HandleResponse(); //THIS solves my problem <----
+                    //}
                     return Task.CompletedTask;
                 },
                 OnTokenValidated = context =>
@@ -114,6 +126,20 @@ try
     builder.Host.UseNLog();
     #endregion
 
+
+    #region 同源政策(Same Origin Policy)
+    builder.Services.AddCors(options =>
+    {
+        options.AddPolicy("MyCors",
+                              policy =>
+                              {
+                                  policy.AllowAnyOrigin()
+                                  .AllowAnyHeader()
+                                  .AllowAnyMethod();
+                              });
+    });
+
+    #endregion
     #endregion
 
     var app = builder.Build();
@@ -126,10 +152,10 @@ try
 
         if (context.Response.StatusCode == (int)HttpStatusCode.Unauthorized) // 401
         {
-            if(context.Items.ContainsKey("ExceptionJson"))
+            if (context.Items.ContainsKey("ExceptionJson"))
             {
                 var item = context.Items["ExceptionJson"];
-                if(item is APIResult)
+                if (item is APIResult)
                 {
                     context.Response.ContentType = "application/json";
                     context.Response.WriteAsync(JsonConvert.SerializeObject(item)).Wait();
@@ -137,6 +163,7 @@ try
             }
         }
     });
+
     #region 宣告 NLog 要使用到的變數內容
     CustomNLogConfiguration optionsCustomNLogConfiguration =
         app.Services.GetRequiredService<IOptions<CustomNLogConfiguration>>()
@@ -177,6 +204,10 @@ try
     app.UseHttpsRedirection();
     #endregion
 
+    #region 使用 CORS
+    app.UseCors("MyCors");
+    #endregion
+
     #region 指定要使用使用者認證的中介軟體
     app.UseCookiePolicy();
     app.UseAuthentication();
@@ -189,7 +220,7 @@ try
     #region 將端點執行新增至中介軟體管線
     app.MapControllers();
     #endregion
-  
+
     #endregion
 
     app.Run();

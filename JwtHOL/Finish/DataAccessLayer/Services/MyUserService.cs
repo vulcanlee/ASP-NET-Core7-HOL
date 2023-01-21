@@ -47,8 +47,8 @@ namespace DataAccessLayer.Services
         {
             List<MyUser> users = MyUser.GetMyUsers();
             var checkUser = users.FirstOrDefault(x =>
-            x.Account.ToLower() == account &&
-            x.Password.ToLower() == password.ToLower());
+            x.Account.ToLower() == account.ToLower() &&
+            x.Password == password);
 
             await Task.Yield();
 
