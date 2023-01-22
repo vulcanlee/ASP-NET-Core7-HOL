@@ -69,6 +69,7 @@ namespace JwtConsole
                 {
                     LoginResponseDto loginResponseDto = JsonConvert
                         .DeserializeObject<LoginResponseDto>(apiResult.Payload.ToString());
+                    Console.WriteLine($"Token : {loginResponseDto.Token}");
                     return loginResponseDto.Token;
                 }
                 else
