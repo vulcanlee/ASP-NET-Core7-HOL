@@ -16,7 +16,7 @@
 |AN011|ASP.NET Core7 Razor 頁面 專案範本|
 |AN012|ASP.NET Core7 Blazor Server 專案範本|
 |AN013|ASP.NET Core 中介軟體設計練習|
-|AN014||
+|AN014|採用 OCP 原則，使用AN005專案，新增一個服務，滿足變更需求|
 |AN015||
 |AN016||
 |AN017||
