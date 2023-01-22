@@ -15,7 +15,7 @@
 |AN010|使用 EF Core Code First 來存取資料庫 - 大量新增紀錄|
 |AN011|ASP.NET Core7 Razor 頁面 專案範本|
 |AN012|ASP.NET Core7 Blazor Server 專案範本|
-|AN013||
+|AN013|ASP.NET Core 中介軟體設計練習|
 |AN014||
 |AN015||
 |AN016||
