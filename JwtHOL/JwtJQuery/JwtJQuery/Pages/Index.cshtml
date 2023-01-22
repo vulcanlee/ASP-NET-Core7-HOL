@@ -62,7 +62,7 @@
                 options.dataType = "json";
                 options.success = function (data) {
                     var table = "<table border='1' cellpadding='10'>";
-                    data.forEach(function (element) {
+                    data.payload.forEach(function (element) {
                         var row = "<tr>";
                         row += "<td>";
                         row += element.account;

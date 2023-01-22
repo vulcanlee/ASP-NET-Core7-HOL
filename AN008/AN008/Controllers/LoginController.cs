@@ -47,6 +47,14 @@ namespace AN008.Controllers
             return $" ~~ 需要存取權杖的 API 已經執行完畢";
         }
 
+        [Authorize]
+        [Route("WillThrowException")]
+        [HttpGet]
+        public string WillThrowException()
+        {
+            throw new Exception("喔喔，系統拋出例外異常");
+        }
+
         [AllowAnonymous]
         [Route("NotNeedAccessToken")]
         [HttpGet]
