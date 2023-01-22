@@ -1,0 +1,125 @@
+﻿@page "/"
+@using DataTransferObjects.Dtos;
+@using Newtonsoft.Json;
+@inject HttpClient client
+@inject Blazored.LocalStorage.ILocalStorageService localStorage
+
+<PageTitle>Blazor Wasm 之 JWT 使用範例</PageTitle>
+
+<div>
+    帳號 :
+    <InputText @bind-Value="Account" /><br />
+    密碼 :
+    <InputText type="password" @bind-Value="Password" /><br />
+</div>
+
+@if (string.IsNullOrEmpty(Token) == false)
+{
+    <div class="text-primary">Token : @Token</div>
+}
+
+@if (string.IsNullOrEmpty(Message) == false)
+{
+    <div class="text-danger">Error : @Message</div>
+}
+
+<div>@Users</div>
+
+<div>
+    <button type="button" @onclick="@(async ()=> await SignInAsync())">Sign In</button>
+    <button type="button" @onclick="SignOutAsync">Sign Out</button>
+    <button type="button" @onclick="ShowDataAsync">Show Data</button>
+</div>
+
+<div id="response">
+</div>
+
+@code {
+    public string Account { get; set; } = string.Empty;
+    public string Password { get; set; } = string.Empty;
+    public string Token { get; set; } = string.Empty;
+    public string Message { get; set; } = string.Empty;
+    public string Users { get; set; } = string.Empty;
+
+    protected override async Task OnInitializedAsync()
+    {
+        Token = await localStorage.GetItemAsStringAsync("Token");
+#if DEBUG
+    Account = "Emily";
+    Password = "123";
+#endif
+    }
+
+    async Task SignInAsync()
+    {
+        Token = string.Empty;
+        Message = string.Empty;
+        Users = string.Empty;
+
+        LoginRequestDto loginRequestDto = new LoginRequestDto()
+            {
+                Account = Account,
+                Password = Password,
+            };
+        var responseMessage = await client.PostAsJsonAsync<LoginRequestDto>(
+            "https://localhost:7129/api/Login", loginRequestDto);
+        if (responseMessage.IsSuccessStatusCode)
+        {
+            APIResult apiResult = await responseMessage.Content.ReadFromJsonAsync<APIResult>();
+            if (apiResult.Status == true)
+            {
+                LoginResponseDto loginResponseDto = JsonConvert
+                    .DeserializeObject<LoginResponseDto>(apiResult.Payload.ToString());
+                Token = loginResponseDto.Token;
+                await localStorage.SetItemAsStringAsync("Token", Token);
+            }
+            else
+            {
+                Message = apiResult.Message;
+            }
+        }
+        else
+        {
+            Message = responseMessage.ReasonPhrase;
+        }
+    }
+
+    async Task SignOutAsync()
+    {
+        await localStorage.RemoveItemAsync("Token");
+        Token = string.Empty;
+        Users = "";
+        Message = "";
+    }
+
+    async Task ShowDataAsync()
+    {
+        Users = string.Empty;
+        Message = string.Empty;
+
+        client.DefaultRequestHeaders.Authorization =
+            new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", Token);
+        var responseMessage = await client.GetAsync("https://localhost:7129/api/JwtAuth/NeedAuth");
+        if (responseMessage.IsSuccessStatusCode)
+        {
+            APIResult apiResult = await responseMessage.Content.ReadFromJsonAsync<APIResult>();
+            if (apiResult.Status == true)
+            {
+                List<MyUserDto> myUsersDto = JsonConvert
+                    .DeserializeObject<List<MyUserDto>>(apiResult.Payload.ToString());
+                foreach (var item in myUsersDto)
+                {
+                    Users += $"{item.Account},";
+                }
+            }
+            else
+            {
+                Message = apiResult.Message;
+            }
+        }
+        else
+        {
+            Message = responseMessage.ReasonPhrase;
+        }
+    }
+}
