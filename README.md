@@ -17,7 +17,7 @@
 |AN012|ASP.NET Core7 Blazor Server 專案範本|
 |AN013|ASP.NET Core 中介軟體設計練習|
 |AN014|採用 OCP 原則，使用AN005專案，新增一個服務，滿足變更需求|
-|AN015||
+|AN015|建立 ASP.NET Core 支援 SignalR 專案|
 |AN016||
 |AN017||
 |AN018||
