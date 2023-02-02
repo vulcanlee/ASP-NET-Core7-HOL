@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             Title="{Binding Title}"
+             x:Class="AN017.Views.MainPage"
+             xmlns:viewModel="clr-namespace:AN017.ViewModels"
+             x:DataType="viewModel:MainPageViewModel">
+
+    <ScrollView>
+        <VerticalStackLayout
+            Spacing="25"
+            Padding="30,0"
+            VerticalOptions="Center" HorizontalOptions="Fill"
+            Margin="20,20">
+
+            <Label Text="{Binding ReceiveMessage}"
+                FontSize="24" TextColor="Blue"
+                HorizontalOptions="Start" />
+
+            <Entry Text="{Binding SendMessage}"
+                FontSize="18" BackgroundColor="LightGray"
+                HorizontalOptions="Fill" />
+
+            <Button Text="送出"
+                Command="{Binding SendCommand}"
+                HorizontalOptions="Center" />
+
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>
