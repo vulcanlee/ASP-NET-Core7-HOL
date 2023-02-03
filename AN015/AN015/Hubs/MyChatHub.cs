@@ -1,7 +1,9 @@
-﻿using Microsoft.AspNetCore.SignalR;
+﻿using Microsoft.AspNetCore.Cors;
+using Microsoft.AspNetCore.SignalR;
 
 namespace AN015.Hubs;
 
+[DisableCors]
 public class MyChatHub : Hub
 {
     // 提供 SignalR 用戶端可以對此伺服器呼叫的方法

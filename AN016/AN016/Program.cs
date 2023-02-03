@@ -9,7 +9,7 @@ internal class Program
         #region 建立與產生 SignalR Client 端的物件
         HubConnection connection = new HubConnectionBuilder()
             // 配置 HubConnection 以使用基於 HTTP 的傳輸連接到指定的 URL
-            .WithUrl("https://localhost:7153/myChatHub")
+            .WithUrl("http://localhost:7153/myChatHub")
             .Build();
         #endregion
 

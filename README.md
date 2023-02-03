@@ -20,7 +20,7 @@
 |AN015|建立 ASP.NET Core 支援 SignalR 專案|
 |AN016|建立 SignalR 用戶端 – Console 專案|
 |AN017|建立 SignalR 用戶端 – .NET MAUI 專案|
-|AN018||
+|AN018|建立 SignalR 用戶端 – Blazor Wasm 專案|
 |AN019||
 |AN020||
 |||
