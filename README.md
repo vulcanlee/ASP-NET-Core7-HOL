@@ -21,6 +21,15 @@
 |AN016|建立 SignalR 用戶端 – Console 專案|
 |AN017|建立 SignalR 用戶端 – .NET MAUI 專案|
 |AN018|建立 SignalR 用戶端 – Blazor Wasm 專案|
-|AN019||
-|AN020||
+|AN019|使用 builder.Servers 註冊時，可以強行別注入設定物件|
+|AN020|ASP.NET Core 用強行別來讀取設定練習|
+|AN021||
+|AN022||
+|AN023||
+|AN024||
+|AN025||
+|AN026||
+|AN027||
+|AN028||
+|AN029||
 |||
